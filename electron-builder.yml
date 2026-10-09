@@ -1,0 +1,30 @@
+appId: com.dannytennet.batchprint
+productName: Batch Print
+directories:
+  output: dist
+  buildResources: build
+files:
+  - out/**
+  - package.json
+extraResources:
+  - from: resources/bin
+    to: bin
+    filter:
+      - '**/*'
+asarUnpack:
+  - '**/*.node'
+win:
+  target:
+    - target: nsis
+      arch: [x64]
+  # Code signing: set CSC_LINK (path or base64 of a .pfx) and CSC_KEY_PASSWORD in the
+  # environment before running `npm run dist`. Unsigned builds work but trigger SmartScreen.
+nsis:
+  oneClick: false
+  perMachine: false
+  allowElevation: true
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: Batch Print
+  include: build/installer.nsh
